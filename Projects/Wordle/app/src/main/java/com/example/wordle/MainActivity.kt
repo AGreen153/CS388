@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
     var counter = 0;
+    var streak = 0;
 
     val fourLetterWords =
         "Area,Army,Baby,Back,Ball,Band,Bank,Base,Bill,Body,Book,Call,Card,Care,Case,Cash,City,Club,Cost,Date,Deal,Door,Duty,East,Edge,Face,Fact,Farm,Fear,File,Film,Fire,Firm,Fish,Food,Foot,Form,Fund,Game,Girl,Goal,Gold,Hair,Half,Hall,Hand,Head,Help,Hill,Home,Hope,Hour,Idea,Jack,John,Kind,King,Lack,Lady,Land,Life,Line,List,Look,Lord,Loss,Love,Mark,Mary,Mind,Miss,Move,Name,Need,News,Note,Page,Pain,Pair,Park,Part,Past,Path,Paul,Plan,Play,Post,Race,Rain,Rate,Rest,Rise,Risk,Road,Rock,Role,Room,Rule,Sale,Seat,Shop,Show,Side,Sign,Site,Size,Skin,Sort,Star,Step,Task,Team,Term,Test,Text,Time,Tour,Town,Tree,Turn,Type,Unit,User,View,Wall,Week,West,Wife,Will,Wind,Wine,Wood,Word,Work,Year,Bear,Beat,Blow,Burn,Call,Care,Cast,Come,Cook,Cope,Cost,Dare,Deal,Deny,Draw,Drop,Earn,Face,Fail,Fall,Fear,Feel,Fill,Find,Form,Gain,Give,Grow,Hang,Hate,Have,Head,Hear,Help,Hide,Hold,Hope,Hurt,Join,Jump,Keep,Kill,Know,Land,Last,Lead,Lend,Lift,Like,Link,Live,Look,Lose,Love,Make,Mark,Meet,Mind,Miss,Move,Must,Name,Need,Note,Open,Pass,Pick,Plan,Play,Pray,Pull,Push,Read,Rely,Rest,Ride,Ring,Rise,Risk,Roll,Rule,Save,Seek,Seem,Sell,Send,Shed,Show,Shut,Sign,Sing,Slip,Sort,Stay,Step,Stop,Suit,Take,Talk,Tell,Tend,Test,Turn,Vary,View,Vote,Wait,Wake,Walk,Want,Warn,Wash,Wear,Will,Wish,Work,Able,Back,Bare,Bass,Blue,Bold,Busy,Calm,Cold,Cool,Damp,Dark,Dead,Deaf,Dear,Deep,Dual,Dull,Dumb,Easy,Evil,Fair,Fast,Fine,Firm,Flat,Fond,Foul,Free,Full,Glad,Good,Grey,Grim,Half,Hard,Head,High,Holy,Huge,Just,Keen,Kind,Last,Late,Lazy,Like,Live,Lone,Long,Loud,Main,Male,Mass,Mean,Mere,Mild,Nazi,Near,Neat,Next,Nice,Okay,Only,Open,Oral,Pale,Past,Pink,Poor,Pure,Rare,Real,Rear,Rich,Rude,Safe,Same,Sick,Slim,Slow,Soft,Sole,Sore,Sure,Tall,Then,Thin,Tidy,Tiny,Tory,Ugly,Vain,Vast,Very,Vice,Warm,Wary,Weak,Wide,Wild,Wise,Zero,Ably,Afar,Anew,Away,Back,Dead,Deep,Down,Duly,Easy,Else,Even,Ever,Fair,Fast,Flat,Full,Good,Half,Hard,Here,High,Home,Idly,Just,Late,Like,Live,Long,Loud,Much,Near,Nice,Okay,Once,Only,Over,Part,Past,Real,Slow,Solo,Soon,Sure,That,Then,This,Thus,Very,When,Wide"
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     fun resetFields() {
         val editGuessWordIds = listOf(R.id.guessWord0, R.id.guessWord1, R.id.guessWord2)
         val editGuessCheckIds = listOf(R.id.guessCheckWord0, R.id.guessCheckWord1, R.id.guessCheckWord2)
+        var correctAnswerText = findViewById<TextView>(R.id.answerHere)
 
         editGuessWordIds.forEachIndexed { index, i ->
             val thisTextView = findViewById<TextView>(editGuessWordIds[index])
@@ -58,9 +60,12 @@ class MainActivity : AppCompatActivity() {
 
             thisCheckView.text = ""
             thisCheckView.visibility = View.INVISIBLE
+
+            correctAnswerText.visibility = View.INVISIBLE
         }
 
         counter = 0
+
 
         //val guessButton =
     }
@@ -78,6 +83,7 @@ class MainActivity : AppCompatActivity() {
         val textView = findViewById<TextView>(R.id.submitGuessText)
         val buttonSubmitGuess = findViewById<Button>(R.id.submitGuessButton)
         var resetButton = findViewById<Button>(R.id.submitGuessButtonReset)
+        var correctAnswerText = findViewById<TextView>(R.id.answerHere)
 
         // Get List of element IDs for reusable code
         val editGuessWordIds = listOf(R.id.guessWord0, R.id.guessWord1, R.id.guessWord2)
@@ -127,11 +133,18 @@ class MainActivity : AppCompatActivity() {
             // If the answer was correct then stop the game
             if (thisCheckView.text == "OOOO") {
                 Log.d("MainScreen", "GAME OVER")
+                streak = streak+1
+                correctAnswerText.text = "Game Over!\nCorrect Word was ${answer}\nStreak is now ${streak}"
+                correctAnswerText.visibility = View.VISIBLE
                 buttonSubmitGuess.visibility = View.INVISIBLE
                 resetButton.visibility = View.VISIBLE
             } else {
                 // If this is the 3rd aka fail Show a reset button
                 if (counter == 2) {
+                    streak = 0
+                    Log.d("MainScreen", "GAME OVER")
+                    correctAnswerText.text = "Game Over!\nCorrect Word was ${answer}\nStreak is now ${streak}"
+                    correctAnswerText.visibility = View.VISIBLE
                     buttonSubmitGuess.visibility = View.INVISIBLE
                     resetButton.visibility = View.VISIBLE
                 }
