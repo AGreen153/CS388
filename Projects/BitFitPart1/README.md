@@ -2,7 +2,7 @@
 
 Submitted by: **Andrew Green**
 
-**BitFit Part 1** is a health metrics app that allows users to track ... [TODO] 
+**BitFit Part 1** is a health metrics app that allows users to track ... Calories
 
 Time spent: **13** hours spent in total
 
