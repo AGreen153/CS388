@@ -43,7 +43,9 @@ GIF created with Sharex
 ## Notes
 
 Describe any challenges encountered while building the app.
-- I had to change the version of the backend because everytime you change it you need to change the version number.
+- Wouldn't compile for me from a raw data so had to use lab as a starting point. 
+
+- I had to change the version of the backend because every time you change it you need to change the version number.
 
 ## License
 
